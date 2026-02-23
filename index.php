@@ -23,7 +23,8 @@ $businesses = $stmt->fetchAll();
 <div class="max-w-7xl mx-auto p-6">
     <div class="flex items-center justify-between mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Business Listing</h1>
-        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" data-bs-toggle="modal"
+            data-bs-target="#addBusinessModal">
             + Add Business
         </button>
     </div>
@@ -68,10 +69,12 @@ $businesses = $stmt->fetchAll();
                         </td>
 
                         <td class="px-4 py-2 border text-center">
-                            <div class="rating-readonly inline-block" data-score="<?= round($b['average_rating'], 1) ?>">
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1">
-                                <?= round($b['average_rating'], 1) ?> / 5
+                            <div class="flex items-center justify-center gap-2 whitespace-nowrap">
+                                <div class="rating-readonly" data-score="<?= round($b['average_rating'], 1) ?>">
+                                </div>
+                                <span class="text-xs text-gray-500">
+                                    <?= round($b['average_rating'], 1) ?> / 5
+                                </span>
                             </div>
                         </td>
 
@@ -88,6 +91,46 @@ $businesses = $stmt->fetchAll();
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
+</div>
+
+<!-- Add Business Modal -->
+<div class="modal fade" id="addBusinessModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-lg">
+            <div class="modal-header">
+                <h5 class="modal-title font-bold">Add Business</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="addBusinessForm">
+                    <div class="mb-3">
+                        <label class="block mb-1">Business Name</label>
+                        <input type="text" name="name" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Address</label>
+                        <input type="text" name="address" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Phone</label>
+                        <input type="text" name="phone" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                        Save Business
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
