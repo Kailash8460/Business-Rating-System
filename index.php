@@ -79,7 +79,11 @@ $businesses = $stmt->fetchAll();
                         </td>
 
                         <td class="px-4 py-2 border text-center">
-                            <button class="edit-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+                            <button class="edit-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
+                                data-id="<?= $b['id'] ?>" data-name="<?= htmlspecialchars($b['name']) ?>"
+                                data-address="<?= htmlspecialchars($b['address']) ?>"
+                                data-phone="<?= htmlspecialchars($b['phone']) ?>"
+                                data-email="<?= htmlspecialchars($b['email']) ?>">
                                 Edit
                             </button>
                             <button
@@ -99,33 +103,40 @@ $businesses = $stmt->fetchAll();
     <div class="modal-dialog">
         <div class="modal-content rounded-lg">
             <div class="modal-header">
-                <h5 class="modal-title font-bold">Add Business</h5>
+                <h5 class="modal-title font-bold" id="businessModalTitle">Add Business</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <div class="modal-body">
-                <form id="addBusinessForm">
+                <form id="businessForm">
+                    <input type="hidden" name="id" id="businessId">
+
                     <div class="mb-3">
                         <label class="block mb-1">Business Name</label>
-                        <input type="text" name="name" required class="w-full border px-3 py-2 rounded">
+                        <input type="text" name="name" id="businessName" required
+                            class="w-full border px-3 py-2 rounded">
                     </div>
 
                     <div class="mb-3">
                         <label class="block mb-1">Address</label>
-                        <input type="text" name="address" required class="w-full border px-3 py-2 rounded">
+                        <input type="text" name="address" id="businessAddress" required
+                            class="w-full border px-3 py-2 rounded">
                     </div>
 
                     <div class="mb-3">
                         <label class="block mb-1">Phone</label>
-                        <input type="text" name="phone" required class="w-full border px-3 py-2 rounded">
+                        <input type="text" name="phone" id="businessPhone" required
+                            class="w-full border px-3 py-2 rounded">
                     </div>
 
                     <div class="mb-3">
                         <label class="block mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full border px-3 py-2 rounded">
+                        <input type="email" name="email" id="businessEmail" required
+                            class="w-full border px-3 py-2 rounded">
                     </div>
 
-                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                    <button type="submit" id="businessSubmitBtn"
+                        class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
                         Save Business
                     </button>
                 </form>
