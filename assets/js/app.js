@@ -120,4 +120,45 @@ $(document).ready(function () {
         modal.show();
     });
 
+    let deleteBusinessId = null;
+    let deleteRow = null;
+
+    $(document).on('click', '.delete-btn', function () {
+        deleteBusinessId = $(this).data('id');
+        deleteRow = $(this).closest('tr');
+
+        const modalEl = document.getElementById('deleteConfirmModal');
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    });
+
+    $(document).on('click', '#confirmDeleteBtn', function () {
+
+        if (!deleteBusinessId) return;
+
+        $.ajax({
+            url: 'ajax/business_delete.php',
+            type: 'POST',
+            data: { id: deleteBusinessId },
+            dataType: 'json',
+            success: function (res) {
+
+                if (!res.success) {
+                    alert(res.message || 'Delete failed');
+                    return;
+                }
+
+                deleteRow.fadeOut(300, function () {
+                    $(this).remove();
+                });
+
+                deleteBusinessId = null;
+                deleteRow = null;
+
+                const modalEl = document.getElementById('deleteConfirmModal');
+                bootstrap.Modal.getInstance(modalEl).hide();
+            }
+        });
+    });
+
 });

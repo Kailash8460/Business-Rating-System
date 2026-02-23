@@ -86,8 +86,8 @@ $businesses = $stmt->fetchAll();
                                 data-email="<?= htmlspecialchars($b['email']) ?>">
                                 Edit
                             </button>
-                            <button
-                                class="delete-btn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm ml-2">
+                            <button class="delete-btn bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm ml-2"
+                                data-id="<?= $b['id'] ?>">
                                 Delete
                             </button>
                         </td>
@@ -98,7 +98,6 @@ $businesses = $stmt->fetchAll();
     </div>
 </div>
 
-<!-- Add Business Modal -->
 <div class="modal fade" id="addBusinessModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content rounded-lg">
@@ -140,6 +139,38 @@ $businesses = $stmt->fetchAll();
                         Save Business
                     </button>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-lg">
+            <div class="modal-header">
+                <h5 class="modal-title font-bold text-red-600">
+                    Confirm Delete
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-gray-700">
+                Are you sure you want to delete this business?<br>
+                <span class="text-sm text-gray-500">
+                    This action cannot be undone.
+                </span>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded"
+                    data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <button type="button" id="confirmDeleteBtn"
+                    class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                    Delete
+                </button>
             </div>
         </div>
     </div>
