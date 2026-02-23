@@ -70,7 +70,8 @@ $businesses = $stmt->fetchAll();
 
                         <td class="px-4 py-2 border text-center">
                             <div class="flex items-center justify-center gap-2 whitespace-nowrap">
-                                <div class="rating-readonly" data-score="<?= round($b['average_rating'], 1) ?>">
+                                <div class="rating-readonly cursor-pointer inline-flex items-center"
+                                    data-business-id="<?= $b['id'] ?>" data-score="<?= round($b['average_rating'], 1) ?>">
                                 </div>
                                 <span class="text-xs text-gray-500">
                                     <?= round($b['average_rating'], 1) ?> / 5
@@ -171,6 +172,48 @@ $businesses = $stmt->fetchAll();
                     class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
                     Delete
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ratingModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-lg">
+            <div class="modal-header">
+                <h5 class="modal-title font-bold">Rate Business</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <form id="ratingForm">
+                    <input type="hidden" id="ratingBusinessId" name="business_id">
+
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Your Name</label>
+                        <input type="text" name="name" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Phone</label>
+                        <input type="text" name="phone" required class="w-full border px-3 py-2 rounded">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="block mb-1">Rating</label>
+                        <div id="ratingInput" class="flex items-center gap-2"></div>
+                    </div>
+
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                        Submit Rating
+                    </button>
+                </form>
             </div>
         </div>
     </div>

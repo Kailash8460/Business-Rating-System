@@ -161,4 +161,70 @@ $(document).ready(function () {
         });
     });
 
+    $(document).on('click', '.rating-readonly', function () {
+
+        const businessId = $(this).data('business-id');
+
+        $('#ratingBusinessId').val(businessId);
+        $('#ratingValue').val(0);
+
+        // $('#ratingInput').raty({
+        //     half: true,
+        //     score: 0,
+        //     click: function (score) {
+        //         $('#ratingValue').val(score);
+        //     },
+        //     path: 'assets/images/raty'
+        // });
+        $('#ratingInput').raty({
+            half: true,
+            score: 0,
+            scoreName: 'rating',
+            path: 'assets/images/raty'
+        });
+
+        const modalEl = document.getElementById('ratingModal');
+        const modal = new bootstrap.Modal(modalEl);
+        modal.show();
+    });
+
+    $('#ratingForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'ajax/rating_add_update.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (res) {
+
+                if (!res.success) {
+                    alert(res.message || 'Rating failed');
+                    return;
+                }
+
+                const businessId = res.business_id;
+                const avgRating = res.average_rating;
+
+                const ratingDiv = $(
+                    '.rating-readonly[data-business-id="' + businessId + '"]'
+                );
+
+                ratingDiv.raty('set', {
+                    score: avgRating
+                });
+
+                ratingDiv
+                    .closest('td')
+                    .find('span')
+                    .text(avgRating + ' / 5');
+
+                $('#ratingForm')[0].reset();
+
+                const modalEl = document.getElementById('ratingModal');
+                bootstrap.Modal.getInstance(modalEl).hide();
+            }
+        });
+    });
+
 });

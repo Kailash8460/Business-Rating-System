@@ -24,8 +24,9 @@
     <script src="assets/js/app.js" defer></script>
 
     <style>
-        .rating-readonly img {
+        .raty img {
             display: inline-block !important;
+            vertical-align: middle;
         }
     </style>
 </head>
